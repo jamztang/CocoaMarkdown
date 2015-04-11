@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^CMAttributedStringRendererImageWillLoadHandler)(NSURL *URL);
+
 @class CMDocument;
 @class CMTextAttributes;
 @protocol CMHTMLElementTransformer;
@@ -43,5 +45,7 @@
  *  styled using the attributes set on the receiver.
  */
 - (NSAttributedString *)render;
+
+@property (nonatomic, copy) CMAttributedStringRendererImageWillLoadHandler imageWillLoadHandler;
 
 @end

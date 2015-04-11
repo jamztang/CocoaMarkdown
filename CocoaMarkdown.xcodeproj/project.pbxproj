@@ -11,6 +11,10 @@
 		06D9F8781A70465700C00B67 /* CMHTMLUnderlineTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 06D9F8751A70465700C00B67 /* CMHTMLUnderlineTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		06D9F8791A70465700C00B67 /* CMHTMLUnderlineTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D9F8761A70465700C00B67 /* CMHTMLUnderlineTransformer.m */; };
 		06D9F87A1A70465700C00B67 /* CMHTMLUnderlineTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D9F8761A70465700C00B67 /* CMHTMLUnderlineTransformer.m */; };
+		1A8ACF601AD90A9B00CBB369 /* CMImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A8ACF5E1AD90A9B00CBB369 /* CMImageCache.h */; };
+		1A8ACF611AD90A9B00CBB369 /* CMImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A8ACF5E1AD90A9B00CBB369 /* CMImageCache.h */; };
+		1A8ACF621AD90A9B00CBB369 /* CMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8ACF5F1AD90A9B00CBB369 /* CMImageCache.m */; };
+		1A8ACF631AD90A9B00CBB369 /* CMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8ACF5F1AD90A9B00CBB369 /* CMImageCache.m */; };
 		720DA5811A68A00900DD05AF /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729F53FB1A68649200CC7448 /* CocoaMarkdown.framework */; };
 		720DA5821A68A01600DD05AF /* CocoaMarkdown.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 729F53FB1A68649200CC7448 /* CocoaMarkdown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		722694BC1A687B4100E1D3DC /* test.md in Resources */ = {isa = PBXBuildFile; fileRef = 72FE7F171A686AC300F23F46 /* test.md */; };
@@ -304,6 +308,8 @@
 /* Begin PBXFileReference section */
 		06D9F8751A70465700C00B67 /* CMHTMLUnderlineTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMHTMLUnderlineTransformer.h; sourceTree = "<group>"; };
 		06D9F8761A70465700C00B67 /* CMHTMLUnderlineTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMHTMLUnderlineTransformer.m; sourceTree = "<group>"; };
+		1A8ACF5E1AD90A9B00CBB369 /* CMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMImageCache.h; sourceTree = "<group>"; };
+		1A8ACF5F1AD90A9B00CBB369 /* CMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMImageCache.m; sourceTree = "<group>"; };
 		722E33DE1A68E7E4004DE919 /* CMAttributeRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAttributeRun.h; sourceTree = "<group>"; };
 		722E33DF1A68E7E4004DE919 /* CMAttributeRun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAttributeRun.m; sourceTree = "<group>"; };
 		722E33E41A68E86B004DE919 /* CMTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextAttributes.h; sourceTree = "<group>"; };
@@ -501,6 +507,8 @@
 				722E33E51A68E86B004DE919 /* CMTextAttributes.m */,
 				72C17A7F1A6EB75800212F17 /* CMDocument+AttributedStringAdditions.h */,
 				72C17A801A6EB75800212F17 /* CMDocument+AttributedStringAdditions.m */,
+				1A8ACF5E1AD90A9B00CBB369 /* CMImageCache.h */,
+				1A8ACF5F1AD90A9B00CBB369 /* CMImageCache.m */,
 			);
 			name = "Attributed Strings";
 			sourceTree = "<group>";
@@ -779,6 +787,7 @@
 				729F54381A6864F400CC7448 /* CMPlatformDefines.h in Headers */,
 				729F53E01A68641400CC7448 /* CocoaMarkdown.h in Headers */,
 				729F542E1A6864F400CC7448 /* CMNode_Private.h in Headers */,
+				1A8ACF601AD90A9B00CBB369 /* CMImageCache.h in Headers */,
 				72C17A811A6EB75800212F17 /* CMDocument+AttributedStringAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -814,6 +823,7 @@
 				72C17A821A6EB75800212F17 /* CMDocument+AttributedStringAdditions.h in Headers */,
 				722E33ED1A68EADA004DE919 /* CMCascadingAttributeStack.h in Headers */,
 				72772BE71A69ABB20059936C /* CMHTMLStrikethroughTransformer.h in Headers */,
+				1A8ACF611AD90A9B00CBB369 /* CMImageCache.h in Headers */,
 				729F542F1A6864F400CC7448 /* CMNode_Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1127,6 +1137,7 @@
 			files = (
 				729F54631A68651E00CC7448 /* html.c in Sources */,
 				7251160B1A69760A00337419 /* CMHTMLElement.m in Sources */,
+				1A8ACF621AD90A9B00CBB369 /* CMImageCache.m in Sources */,
 				729F54591A68651E00CC7448 /* cmark_ctype.c in Sources */,
 				729F54551A68651E00CC7448 /* blocks.c in Sources */,
 				729F542C1A6864F400CC7448 /* CMIterator.m in Sources */,
@@ -1184,6 +1195,7 @@
 			files = (
 				729F54641A68651E00CC7448 /* html.c in Sources */,
 				7251160C1A69760A00337419 /* CMHTMLElement.m in Sources */,
+				1A8ACF631AD90A9B00CBB369 /* CMImageCache.m in Sources */,
 				729F545A1A68651E00CC7448 /* cmark_ctype.c in Sources */,
 				729F54561A68651E00CC7448 /* blocks.c in Sources */,
 				729F542D1A6864F400CC7448 /* CMIterator.m in Sources */,

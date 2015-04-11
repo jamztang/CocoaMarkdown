@@ -19,6 +19,7 @@
 #define CMFontTraitItalic UIFontDescriptorTraitItalic
 #define CMFontTraitBold UIFontDescriptorTraitBold
 #define CMUnderlineStyle NSUnderlineStyle
+#define CMImage UIImage
 
 #else
 #import <Cocoa/Cocoa.h>
@@ -30,6 +31,7 @@
 #define CMFontTraitItalic NSFontItalicTrait
 #define CMFontTraitBold NSFontBoldTrait
 #define CMUnderlineStyle NSInteger
+#define CMImage NSImage
 
 #endif
 

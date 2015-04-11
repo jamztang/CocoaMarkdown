@@ -14,6 +14,7 @@
 #import "CMHTMLElement.h"
 #import "CMHTMLUtilities.h"
 #import "CMTextAttributes.h"
+#import "CMImageCache.h"
 #import "CMNode.h"
 #import "CMParser.h"
 
@@ -147,6 +148,30 @@
 - (void)parser:(CMParser *)parser didEndLinkWithURL:(NSURL *)URL title:(NSString *)title
 {
     [_attributeStack pop];
+}
+
+- (void)parser:(CMParser *)parser didStartImageWithURL:(NSURL *)URL title:(NSString *)title {
+
+#if TARGET_OS_IPHONE
+    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+    CMImage *image = [[CMImageCache sharedInstance] imageForURL:URL];
+    if ( ! image) {
+        image = [CMImageCache placeholderImageWithSize:CGSizeMake(320, 240)];
+        textAttachment.bounds = CGRectMake(0, 0, 320, 240);
+
+        if (self.imageWillLoadHandler) {
+            self.imageWillLoadHandler(URL);
+        }
+
+        [[CMImageCache sharedInstance] loadImageFromURL:URL];
+    }
+
+    textAttachment.image = image;
+
+    NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+
+    [_buffer appendAttributedString:attrStringWithImage];
+#endif
 }
 
 - (void)parser:(CMParser *)parser foundHTML:(NSString *)HTML
