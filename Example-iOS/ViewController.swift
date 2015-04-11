@@ -9,18 +9,14 @@
 import UIKit
 import CocoaMarkdown
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CMAttributedStringRendererDelegate {
     @IBOutlet var textView: UITextView!
-    var pendingImages : [NSURL] = []
     var contentOffset : CGPoint = CGPointZero
+    var renderer : CMAttributedStringRenderer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "imageDidLoad:", name: "CMImageCacheImageDidLoadNotification", object: nil);
-
         reloadData()
-
     }
 
     func reloadData() {
@@ -30,26 +26,20 @@ class ViewController: UIViewController {
         renderer.registerHTMLElementTransformer(CMHTMLStrikethroughTransformer())
         renderer.registerHTMLElementTransformer(CMHTMLSuperscriptTransformer())
         renderer.registerHTMLElementTransformer(CMHTMLUnderlineTransformer())
-        renderer.imageWillLoadHandler = { url in
-            self.pendingImages += [url]
-        }
+        renderer.delegate = self
         textView.attributedText = renderer.render()
+        self.renderer = renderer
     }
 
-    func imageDidLoad(notification: NSNotification) {
+    // MARK: CMAttributedStringRenderer
 
-        if let url = notification.userInfo?["url"] as? NSURL where find(pendingImages, url) != nil {
-            println("found that we are intereseted in this url \(url)")
-            contentOffset = self.textView.contentOffset
-            println("currentOffset \(contentOffset)")
-
-            self.reloadData()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.textView.contentOffset = self.contentOffset
-                println("restoreOffset")
-            })
-        }
-
+    func rendererContentDidInvalidate(render: CMAttributedStringRenderer!) {
+        contentOffset = self.textView.contentOffset
+        self.reloadData()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.textView.contentOffset = self.contentOffset
+            println("restoreOffset")
+        })
     }
 
 }

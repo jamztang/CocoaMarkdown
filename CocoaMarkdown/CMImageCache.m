@@ -51,9 +51,11 @@ NSString *const CMImageCacheImageDidLoadNotification = @"CMImageCacheImageDidLoa
 @implementation CMImageCache (Utilities)
 
 - (void)loadImageFromURL:(NSURL *)URL {
+    NSLog(@"CMImageCache: Start downloading images with URL %@", URL);
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:URL] queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                CMImage *image = [[CMImage alloc] initWithData:data];
+                               NSLog(@"CMImageCache: Finished downloading images from URL %@, error? %@", URL, connectionError);
                                if (image) {
                                    [self setImage:image forURL:URL];
                                }

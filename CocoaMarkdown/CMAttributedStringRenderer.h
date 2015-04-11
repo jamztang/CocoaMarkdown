@@ -8,7 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^CMAttributedStringRendererImageWillLoadHandler)(NSURL *URL);
+@class CMAttributedStringRenderer;
+
+@protocol CMAttributedStringRendererDelegate <NSObject>
+
+// will trigger whenever new images are downloaded
+- (void)rendererContentDidInvalidate:(CMAttributedStringRenderer *)render;
+
+@end
+
 
 @class CMDocument;
 @class CMTextAttributes;
@@ -46,6 +54,6 @@ typedef void(^CMAttributedStringRendererImageWillLoadHandler)(NSURL *URL);
  */
 - (NSAttributedString *)render;
 
-@property (nonatomic, copy) CMAttributedStringRendererImageWillLoadHandler imageWillLoadHandler;
+@property (nonatomic, weak) id <CMAttributedStringRendererDelegate> delegate;
 
 @end

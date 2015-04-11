@@ -31,6 +31,11 @@
     NSMutableDictionary *_tagNameToTransformerMapping;
     NSMutableAttributedString *_buffer;
     NSAttributedString *_attributedString;
+    NSMutableArray *_pendingImageURLs;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)initWithDocument:(CMDocument *)document attributes:(CMTextAttributes *)attributes
@@ -39,6 +44,12 @@
         _document = document;
         _attributes = attributes;
         _tagNameToTransformerMapping = [[NSMutableDictionary alloc] init];
+        _pendingImageURLs = [[NSMutableArray alloc] init];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(imageDidLoad:)
+                                                     name:CMImageCacheImageDidLoadNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -157,16 +168,12 @@
     CMImage *image = [[CMImageCache sharedInstance] imageForURL:URL];
     if ( ! image) {
         image = [CMImageCache placeholderImageWithSize:CGSizeMake(320, 240)];
-        textAttachment.bounds = CGRectMake(0, 0, 320, 240);
-
-        if (self.imageWillLoadHandler) {
-            self.imageWillLoadHandler(URL);
-        }
-
+        [_pendingImageURLs addObject:URL];
         [[CMImageCache sharedInstance] loadImageFromURL:URL];
     }
 
     textAttachment.image = image;
+    textAttachment.bounds = CGRectMake(0, 0, 320, 240);
 
     NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 
@@ -344,6 +351,16 @@
         } else {
             [parentElement.buffer appendString:attrString.string];
         }
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)imageDidLoad:(NSNotification *)notification {
+    NSURL *url = notification.userInfo[@"url"];
+    NSUInteger index = [_pendingImageURLs indexOfObject:url];
+    if (index != NSNotFound) {
+        [self.delegate rendererContentDidInvalidate:self];
     }
 }
 
