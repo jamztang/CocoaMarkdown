@@ -96,4 +96,13 @@ NSString *const CMImageCacheImageDidLoadNotification = @"CMImageCacheImageDidLoa
     return nil;
 }
 
++ (CGSize)size:(CGSize)originalSize thatAspectFits:(CGSize)size {
+    CGFloat widthRatio = size.width / originalSize.width;
+    CGFloat heightRatio = size.height / originalSize.height;
+    CGFloat ratio = MIN(widthRatio, heightRatio);
+    CGAffineTransform transform = CGAffineTransformMakeScale(ratio, ratio);
+    CGSize newSize = CGSizeApplyAffineTransform(originalSize, transform);
+    return newSize;
+}
+
 @end

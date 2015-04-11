@@ -45,6 +45,7 @@
         _attributes = attributes;
         _tagNameToTransformerMapping = [[NSMutableDictionary alloc] init];
         _pendingImageURLs = [[NSMutableArray alloc] init];
+        _maxImageSize = CGSizeMake(100, 100);
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(imageDidLoad:)
@@ -167,14 +168,15 @@
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
     CMImage *image = [[CMImageCache sharedInstance] imageForURL:URL];
     if ( ! image) {
-        image = [CMImageCache placeholderImageWithSize:CGSizeMake(320, 240)];
+        CGSize landscapePlaceholderSize = [CMImageCache size:CGSizeMake(3, 2) thatAspectFits:_maxImageSize];
+        image = [CMImageCache placeholderImageWithSize:landscapePlaceholderSize];
         [_pendingImageURLs addObject:URL];
         [[CMImageCache sharedInstance] loadImageFromURL:URL];
     }
 
     textAttachment.image = image;
-    textAttachment.bounds = CGRectMake(0, 0, 320, 240);
-
+    CGSize size = [CMImageCache size:image.size thatAspectFits:_maxImageSize];
+    textAttachment.bounds = CGRectMake(0, 0, size.width, size.height);
     NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
 
     [_buffer appendAttributedString:attrStringWithImage];

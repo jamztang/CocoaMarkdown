@@ -26,5 +26,6 @@ extern NSString *const CMImageCacheImageDidLoadNotification;
 
 - (void)loadImageFromURL:(NSURL *)URL;
 + (CMImage *)placeholderImageWithSize:(CGSize)size;
++ (CGSize)size:(CGSize)originalSize thatAspectFits:(CGSize)size;
 
 @end

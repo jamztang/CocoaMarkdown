@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 @class CMAttributedStringRenderer;
 
@@ -55,5 +56,6 @@
 - (NSAttributedString *)render;
 
 @property (nonatomic, weak) id <CMAttributedStringRendererDelegate> delegate;
+@property (nonatomic, assign) CGSize maxImageSize;
 
 @end

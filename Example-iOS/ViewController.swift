@@ -16,6 +16,10 @@ class ViewController: UIViewController, CMAttributedStringRendererDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         reloadData()
     }
 
@@ -23,10 +27,13 @@ class ViewController: UIViewController, CMAttributedStringRendererDelegate {
         let path = NSBundle.mainBundle().pathForResource("test", ofType: "md")!
         let document = CMDocument(contentsOfFile: path)
         let renderer = CMAttributedStringRenderer(document: document, attributes: CMTextAttributes())
+        let realBounds = UIEdgeInsetsInsetRect(textView.bounds, textView.textContainerInset)
+        let effectiveWidth = realBounds.width - 2 * self.textView.textContainer.lineFragmentPadding
         renderer.registerHTMLElementTransformer(CMHTMLStrikethroughTransformer())
         renderer.registerHTMLElementTransformer(CMHTMLSuperscriptTransformer())
         renderer.registerHTMLElementTransformer(CMHTMLUnderlineTransformer())
         renderer.delegate = self
+        renderer.maxImageSize = CGSizeMake(effectiveWidth, effectiveWidth)
         textView.attributedText = renderer.render()
         self.renderer = renderer
     }
